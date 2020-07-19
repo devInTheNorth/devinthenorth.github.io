@@ -1,0 +1,131 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    background-color: teal;
+}
+ header{
+        padding: 1rem;
+        background-color: white;
+        border-bottom: 10px solid slategray;
+    }
+    header h1, h2, header h3{
+        margin-bottom: .5rem;
+    }
+form  input:not([type='submit']) {
+    height: 2em;
+    font-size: 1em;
+    
+}
+label{
+    color:#bbb;
+    margin-bottom: 0px;
+}
+.btn{
+    padding: 20px;
+    
+    font-size: 1em;
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+    border: 1px solid teal;
+    margin-left: 30%;
+    transition: background-color 0.5s ease-out;
+    box-shadow: 5px 5px 5px rgba(0,0,0, .5);
+    padding: 1em 3em;
+    
+}
+P.withIcon{
+   
+    position: relative;
+}
+#btnAdd + i{
+    color:teal;
+    
+   background-clip: padding-box;
+    position: absolute;
+    left: 33%;
+    bottom: 10px;
+ 
+}
+#btnAdd + i:hover{
+    color:green;
+   
+}
+.btn:hover{
+    background-color: lightseagreen;
+    color:snow;
+}
+.btn:hover + li{
+   color:white;
+}
+.btn:focus{
+    background-color:rgba(0,0,0, .6);
+    opacity: .7;
+    
+}
+ol.features li{
+    display: inline;
+    background-color: teal;
+    padding:5px;
+    
+}
+main{
+    padding:1em;
+    /* background:  linear-gradient(red, blue) url('imgs/bg-mobile.png'); */
+    
+    background-color: white;
+    padding-right: 2em;
+    
+}
+aside{
+    background-color: teal;
+    padding:1em;
+    flex:1;
+}
+form  input:not([type='submit']), textarea{
+    width: 100%;
+    border-radius: 0px;
+    margin: 10px 0px;
+    border: 2px solid teal;
+    margin-top: 0px;
+    
+}
+.tasks{
+    background-color: linen;
+    margin: 1em;
+    padding: .5em;
+    position: relative;
+}
+.tasks table{
+    display: none;
+    
+    
+}
+.tasks i{
+    position: absolute;
+    right: 10px;
+    top: 7px; 
+    
+}
+footer{
+    padding: .5rem;
+    background-color: slategrey;
+}
+@media(min-width:767px){
+   
+    
+    main{
+       /* background:  linear-gradient(red, blue) url('imgs/bg-mobile.png'); */
+        flex:1.5;
+    }
+    aside{
+        flex:2;
+    }
+
+    .container{
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+
+}
