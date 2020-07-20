@@ -2,9 +2,7 @@
     margin: 0px;
     padding: 0px;
 }
-body{
-    background-color: teal;
-}
+
  header{
         padding: 1rem;
         background-color: white;
@@ -19,7 +17,7 @@ form  input:not([type='submit']) {
     
 }
 label{
-    color:#bbb;
+    color:slategray;
     margin-bottom: 0px;
 }
 .btn{
@@ -38,8 +36,8 @@ P.withIcon{
    
     position: relative;
 }
-#btnAdd + i{
-    color:teal;
+.btn + i{
+    color:green;
     
    background-clip: padding-box;
     position: absolute;
@@ -47,9 +45,8 @@ P.withIcon{
     bottom: 10px;
  
 }
-#btnAdd + i:hover{
-    color:green;
-   
+.btn:hover + i{
+    color:teal;
 }
 .btn:hover{
     background-color: lightseagreen;
@@ -63,6 +60,33 @@ P.withIcon{
     opacity: .7;
     
 }
+h2{
+    font-size: 1.5em;
+}
+
+.todo-item .btnDelete{
+    background-color:white;
+    border: 2px solid red;
+
+  
+}
+.todo-item .btnDelete:hover{
+    background-color: red;
+    color:white;
+  
+}
+.todo-item .btnEdit{
+    background-color:white;
+    border: 2px solid #17a2b8;
+    float: right;
+
+}
+.todo-item .btnEdit:hover{
+    background-color: #17a2b8;
+    float: right;
+    color:white;
+
+}
 ol.features li{
     display: inline;
     background-color: teal;
@@ -72,48 +96,87 @@ ol.features li{
 main{
     padding:1em;
     /* background:  linear-gradient(red, blue) url('imgs/bg-mobile.png'); */
-    
     background-color: white;
     padding-right: 2em;
     
 }
 aside{
     background-color: teal;
-    padding:1em;
-    flex:1;
+    padding:.4rem;
 }
 form  input:not([type='submit']), textarea{
-    width: 100%;
+    width: 15rem;
     border-radius: 0px;
     margin: 10px 0px;
     border: 2px solid teal;
     margin-top: 0px;
-    
 }
+form input[type='Date'], form input[type='Time']{
+    
+    width: 40%;
+    float: left;
+    height: 2em;
+    font-size: 1em;
+}
+form input[type='Date']{
+    border-right: 0px;
+}
+
 .tasks{
-    background-color: linen;
-    margin: 1em;
-    padding: .5em;
+    margin: .1em;
+    padding: 0px;
     position: relative;
 }
-.tasks table{
-    display: none;
-    
-    
+.tasks h2{
+    background-color: springgreen;
+    padding: .1rem;
 }
-.tasks i{
-    position: absolute;
+#btnAuto{
+    display: none;
+}
+.tasks h2+i{
+     position: absolute;
     right: 10px;
-    top: 7px; 
-    
+    top: 7px;   
+}
+.todo-item button{
+    padding: .2em .5em;
+    font-family:  Geneva, Verdana, sans-serif;
+    border-radius: 1em;
+    font-size: 1em;
+    transition: all 1s ease-in-out;
+}
+div.todo-item{
+    margin: 5px;
+    background-color:snow ;
+    padding: .9em;
 }
 footer{
     padding: .5rem;
     background-color: slategrey;
 }
-@media(min-width:767px){
-   
+aside h2{
+    text-align: center;
     
+}
+.container{
+    display: block;
+}
+@media(max-width:1023px){
+   
+    .todo-item .btnEdit{
+        background-color:white;
+        border: 2px solid #17a2b8;
+        float: right;
+    
+    }
+    .todo-item button{
+        padding: .5em 1.5em;
+        font-family:  Geneva, Verdana, sans-serif;
+        border-radius: 1.3em;
+        font-size: 1em;
+        transition: all 1s ease-in-out;
+    }
     main{
        /* background:  linear-gradient(red, blue) url('imgs/bg-mobile.png'); */
         flex:1.5;
@@ -126,6 +189,19 @@ footer{
         display: flex;
         flex-direction: row-reverse;
     }
+    .tasks{
+        margin: 1em;
+        padding: .1em;
+        position: relative;
+    }
+    aside{
+        background-color: teal;
+        padding:1em;
+    }
 
+}
+/* TABLE STYLES */
+
+@media(max-width:767px){
 
 }

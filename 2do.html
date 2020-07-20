@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="2do.css">
-    <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css">
     <title>Qwikly To-do App</title>
 </head>
-<body>
+<body data-me="abcde">
     <header>
         <h1>Qwikly To-do App</h1>
         <h2>Why people are using Qwikly</h2>
@@ -28,42 +28,40 @@
             <label for="txtHeading">Add a Title</label>
              <p><input type="text" name="txtHeading" id="txtHeading" placeholder=" Add a Title" required> </p>
 
-             <label for="txtDate">Select A Date</label>
-             <p><input type="date" name="txtDate" id="txtDate" placeholder=" Pick a Date" required> </p>
+             <p> <label for="txtDate">Select A Date</label> <label for="txtTime" style="margin-left: 130px;">Supply Time</label> </p>
+            <input type="date" name="txtDate" id="txtDate" placeholder=" Pick a Date" required> 
 
-             <label for="txtTime">Supply Time</label>
-             <p><input type="time" name="txtTime" id="txtTime" required ></p>
+             <input type="time"  name="txtTime" id="txtTime" required >
 
-             <label for="txtDetails">Add More Details</label>
-             <p><textarea cols="30" name="txtDetails" id="txtDetails" rows="10" placeholder=" Add more Details" required></textarea> </p>
+             
+             <p style="clear: both;">
+                <label for="txtDetails">Add More Details</label>
+                
+                <textarea cols="30" name="txtDetails" id="txtDetails" rows="10" placeholder=" Add more Details" required></textarea> </p>
              <p class="withIcon"><input type="submit" value="Add To List" id="btnAdd" class="btn"> 
                 <i class="fa fa-2x fa-plus"></i>
+            
+
+            </p>
+            <p class="withIcon"><input type="button" value="Autofill" id="btnAuto" class="btn"> 
+                <i class="fa fa-2x fa-clipboard"></i>
             
             </p>
             </form>
         </div>
     </main>
     <aside>
-        <h2>Your current Tasks will Appear Here</h2>
+        <h2>Active Tasks</h2>
         <div class="today tasks">
-            <h3>Today</h3>
+            <h2>Today</h2>
             <i class="fa fab fa-expand"></i>
 
         </div>
         <div class="tasks">
-            <h3>Tomorrow</h3>
+            <h2>Tomorrow</h2>
             <i class="fa fab fa-expand " id="btn2m"></i>
-            <div class="table">
-                <table id="tb2m">
-                    <tr>
-                        <th>Title</th>
-                        <th> Date</th>
-                        <th>Time</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                    
-                   </table> 
+            <div class="table" id="tasks-2m">
+               
             </div>
             
         </div>
@@ -82,70 +80,99 @@
     </footer>
    
     <script>
+        window.addEventListener('load', () => {
+            fetchItems("#tasks-2m");
+            //document.querySelector('.btnDelete').addEventListener('click', () => {
+           // alert('okagvg');
+            let delBtns = document.querySelectorAll('.btnDelete');
+            for (let x of delBtns){
+                x.addEventListener('click', () => {
+                        //localStorage.removeItem(x.da)
+                       // document.body.getAttribute();
+                  //  alert(x.getAttribute('data-key').toString());
+                document.querySelector(`div[data-taskid='${x.getAttribute('data-key')}']`).style.display = 'none';
+                //let m= document.querySelector(`div[data-taskid='Todo-3']`)
+                    
+                });
+            }
+        });
+        //})
         let TodoObj = new Object();
 
-        function collapseTable(tableID, ctrlBtn){
-            document.querySelector(tableID).style.display = 'none';
+        function collapseList(listID, ctrlBtn){
+            document.querySelector(listID).style.display = 'none';
+            document.querySelector(listID).innerHTML = '';
                document.querySelector(ctrlBtn).classList.remove('fa-minus');
                document.querySelector(ctrlBtn).classList.add('fa-expand');
 
         }
-        function expandTable(tableID, ctrlBtn){
-        document.querySelector(tableID).style.display = 'block';
+        function expandList(listID, ctrlBtn){
+            fetchItems(listID);
+        document.querySelector(listID).style.display = 'block';
             document.querySelector(ctrlBtn).classList.remove('fa-expand');
             document.querySelector(ctrlBtn).classList.add('fa-minus');
 
-     }
+     } 
         let btn2m = document.querySelector('#btn2m').addEventListener('click', () => {
                 if(document.querySelector('#btn2m').className.includes('fa-expand')){
                     
-                    expandTable('#tb2m', "#btn2m"); }
-                else{ collapseTable('#tb2m', "#btn2m"); }
+                   expandList('#tasks-2m', "#btn2m"); 
+                  }
+               else{ collapseList('#tasks-2m', "#btn2m"); }
                 
             });
 
-            function fetchItems(tableName){
-                for(let i =0; i<localStorage.length+1; i++) {
+            function fetchItems(tasksListID){
+                /* for(let i =2; i<localStorage.length; i++) {
                     let Item = JSON.parse(localStorage[`Todo-${i}`]);
-                    let con =  `<td> ${Item.Title} </td> <td> ${Item.Title} </td<td> ${Item.Title} </td<td> ${Item.Title} </td` +
-                    
+                    let con =  `<h2> ${Item.Title} </h2> <td> ${Item.Title} </td<td> ${Item.Title} </td<td> ${Item.Title} </td` 
+                
                   
+                } */
+                for (els of Object.keys(localStorage)){
+                    elContent = JSON.parse(localStorage.getItem(els));
+                    let con =  `<div class='todo-item' data-taskID='${els}'> <h3> ${elContent.Title} </h3>  <strong> Date: </strong>${elContent.Date} <strong>Time: ${elContent.Time} </strong>  <p><strong>Details: </strong>${elContent.Details} <p>  `+
+                    `<button class='btnDelete' data-key='${els}'> Delete </button> <button class='btnEdit' data-key='${els}'> Edit </button> </div>`; 
+                    document.querySelector(tasksListID).innerHTML += con;
+                    
                 }
 
             }
             
-       /*  (btn2m.className.includes('fa-expand')) ? collapseTable('#tb2m', btn2m) : expandTable('#tb2m', btn2m); */
+       /*  (btn2m.className.includes('fa-expand')) ? collapseList('#tb2m', btn2m) : expandList('#tb2m', btn2m); */
           
             function  AddToDo(TodoObj){
+                
                 console.log('adding Objs')
-                let storageNum = `Todo-${localStorage.length+1}`;
-                 localStorage.setItem(storageNum, JSON.parse(TodoObj));
-                 console.log('Added Objs')
+                    let storageNum = `Todo-${localStorage.length+2}`;
+               // (localStorage.length)
+               
+                 localStorage.setItem(storageNum, JSON.stringify(TodoObj));
+                 
             }
             function getInputs(){
-                try{
-                
                 TodoObj.Title = document.querySelector('#txtHeading').value;
                 TodoObj.Date = document.querySelector('#txtDate').value;
                 TodoObj.Time = document.querySelector('#txtTime').value;
                 TodoObj.Details = document.querySelector('#txtDetails').value;
-                console.log('returing Objs')
-                }
-                catch(err){
-                    console.log(err);
-                }
-                finally{
-                    return TodoObj;
-                }
-                
+                console.log('returing Objs');
+                return TodoObj;
             }
             let btnAdd = document.querySelector('#btnAdd').addEventListener('click', () => {
-                    AddToDo(getInputs());
+                  AddToDo(getInputs()); 
+                   alert('jkahfdkjf')
             }); 
 
         /* function validateInputs(textBox, pattern){
 
         } */
+        let btnAuto = document.querySelector('#btnAuto').addEventListener('click', () => {
+                document.querySelector('#txtHeading').value = 'Random Heading';
+                document.querySelector('#txtDate').value = '1991-02-12';
+                document.querySelector('#txtTime').value = '02:05';
+                document.querySelector('#txtDetails').value = 'SOME RANDOM VALUES';
+        })
+        
             
     </script>
 </body>
