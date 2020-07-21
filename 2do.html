@@ -21,9 +21,9 @@
 
     </header>
     <div class="container">
-    <main>
-        <div class="main">
-            <form>
+    <main class="main">
+        
+            <form id="todo-form">
             <legend><h2>Add a new To-do</h2></legend>
             <label for="txtHeading">Add a Title</label>
              <p><input type="text" name="txtHeading" id="txtHeading" placeholder=" Add a Title" required> </p>
@@ -40,27 +40,26 @@
                 <textarea cols="30" name="txtDetails" id="txtDetails" rows="10" placeholder=" Add more Details" required></textarea> </p>
              <p class="withIcon"><input type="submit" value="Add To List" id="btnAdd" class="btn"> 
                 <i class="fa fa-2x fa-plus"></i>
-            
-
+            </p>
+            <p class="withIcon" id="pupdate" style="display: none;">
+                <input type="submit" value="Update Task" id="btnUp" class="btn"> 
+                <i class="fa fa-2x fa-save"></i>
             </p>
             <p class="withIcon"><input type="button" value="Autofill" id="btnAuto" class="btn"> 
-                <i class="fa fa-2x fa-clipboard"></i>
+                
+                
             
             </p>
             </form>
-        </div>
+       
     </main>
     <aside>
-        <h2>Active Tasks</h2>
-        <div class="today tasks">
-            <h2>Today</h2>
-            <i class="fa fab fa-expand"></i>
-
-        </div>
+        
+        
         <div class="tasks">
-            <h2>Tomorrow</h2>
+            <h2>Active Tasks</h2>
             <i class="fa fab fa-expand " id="btn2m"></i>
-            <div class="table" id="tasks-2m">
+            <div class="table" id="tasks-2m" style="display: none;" >
                
             </div>
             
@@ -74,30 +73,79 @@
 
     </div>
     <footer>
-        <h2>Developed with Love by DevInTheNorth</h2>
+        <h2>Developed with <i class="fa fa-3x fa-heart-o anim-heart"></i> by<a href="https://www.github.com/DevInTheNorth"> DevInTheNorth <a/></h2>
        
 
     </footer>
    
+<!-- popup box -->
+
+        <div id="Popup" class="Popup">
+
+        
+        <div class="Popup-content">
+            <span class="close">&times;</span>
+            <h2>Successful!!!</h2>
+            <p id="msg">your Task has been successfully <span class="placeholder"></span> </p>
+        </div>
+
+        </div>
+   
     <script>
-        window.addEventListener('load', () => {
-            fetchItems("#tasks-2m");
+        let currentKey = '';
+        let currentOp = 'A';
+         window.addEventListener('load', () => {
+           // fetchItems("#tasks-2m");
             //document.querySelector('.btnDelete').addEventListener('click', () => {
            // alert('okagvg');
+            initButtons();
+           
+        }); 
+
+        function initButtons(){
             let delBtns = document.querySelectorAll('.btnDelete');
             for (let x of delBtns){
                 x.addEventListener('click', () => {
-                        //localStorage.removeItem(x.da)
-                       // document.body.getAttribute();
-                  //  alert(x.getAttribute('data-key').toString());
+                    let delKey = x.getAttribute('data-key');
                 document.querySelector(`div[data-taskid='${x.getAttribute('data-key')}']`).style.display = 'none';
-                //let m= document.querySelector(`div[data-taskid='Todo-3']`)
+                localStorage.removeItem(delKey);
+                document.querySelector('.placeholder').innerHTML = 'Deleted !';
+                document.querySelector('.Popup-content').style.backgroundColor = 'salmon';
+                document.querySelector('#Popup').style.display = 'block';
+                //let m= document.querySelector(`div[deata-taskid='Todo-3']`)
                     
                 });
             }
-        });
+            let editBns = document.querySelectorAll('.btnEdit');
+            for (let m of editBns){
+                m.addEventListener('click', () => {
+                    currentOp = "B";
+                    currentKey = m.getAttribute('data-key');
+                    let Div = document.querySelector(`div[data-taskid='${m.getAttribute('data-key')}']`);
+                    fillForm(Div);
+                    document.querySelector('#btnAdd').style.display = 'none';
+                    document.querySelector('#pupdate').style.display = 'block';                    
+                });
+
+            }
+
+        }
+            
+    document.querySelector('.close').addEventListener('click', ()=> {
+        document.querySelector('#Popup').style.display = "none";
+    })
         //})
         let TodoObj = new Object();
+        function fillForm(dataKey){
+            document.querySelector('#txtHeading').value = dataKey.querySelector('.todo-title').textContent;
+                document.querySelector('#txtDate').value = dataKey.querySelector('.todo-date').textContent.trim();
+               document.querySelector('#txtTime').value  =  dataKey.querySelector('.todo-time').textContent.trim();
+            
+              // let dDate =new Date(dataKey.querySelector('.todo-time').textContent).toDateString('');
+               
+               
+                document.querySelector('#txtDetails').value = dataKey.querySelector('.todo-details').textContent; 
+        }
 
         function collapseList(listID, ctrlBtn){
             document.querySelector(listID).style.display = 'none';
@@ -108,19 +156,22 @@
         }
         function expandList(listID, ctrlBtn){
             fetchItems(listID);
+            initButtons();
         document.querySelector(listID).style.display = 'block';
             document.querySelector(ctrlBtn).classList.remove('fa-expand');
             document.querySelector(ctrlBtn).classList.add('fa-minus');
 
      } 
         let btn2m = document.querySelector('#btn2m').addEventListener('click', () => {
-                if(document.querySelector('#btn2m').className.includes('fa-expand')){
-                    
-                   expandList('#tasks-2m', "#btn2m"); 
-                  }
-               else{ collapseList('#tasks-2m', "#btn2m"); }
+            
+            
+            if(document.querySelector('#btn2m').className.includes('fa-expand')){
                 
-            });
+               expandList('#tasks-2m', "#btn2m"); 
+              }
+           else{ collapseList('#tasks-2m', "#btn2m"); }
+            
+        });
 
             function fetchItems(tasksListID){
                 /* for(let i =2; i<localStorage.length; i++) {
@@ -131,9 +182,15 @@
                 } */
                 for (els of Object.keys(localStorage)){
                     elContent = JSON.parse(localStorage.getItem(els));
-                    let con =  `<div class='todo-item' data-taskID='${els}'> <h3> ${elContent.Title} </h3>  <strong> Date: </strong>${elContent.Date} <strong>Time: ${elContent.Time} </strong>  <p><strong>Details: </strong>${elContent.Details} <p>  `+
-                    `<button class='btnDelete' data-key='${els}'> Delete </button> <button class='btnEdit' data-key='${els}'> Edit </button> </div>`; 
-                    document.querySelector(tasksListID).innerHTML += con;
+                    let con1 =  `<div class='todo-item' data-taskID='${els}'> <h3 class='todo-title'> ${elContent.Title} </h3>`+
+                    `<strong> Date: </strong>  <span class='todo-date'>  ${elContent.Date} </span> <strong>Time: </strong>`+ 
+                    `<span  class='todo-time'> ${elContent.Time} </span>`;
+
+                    con2 = `<p><strong>Details: </strong> <span class='todo-details'>`+
+                    `${elContent.Details} </span><p>  `+
+                    `<button class='btnDelete' data-key='${els}'> Delete </button> <button class='btnEdit' data-key='${els}'>`+
+                    `Edit </button> </div>`; 
+                    document.querySelector(tasksListID).innerHTML += con1 + con2 ;
                     
                 }
 
@@ -144,12 +201,20 @@
             function  AddToDo(TodoObj){
                 
                 console.log('adding Objs')
-                    let storageNum = `Todo-${localStorage.length+2}`;
+                    let storageNum = `Todo-${genID(localStorage.length+1)}`;
                // (localStorage.length)
                
                  localStorage.setItem(storageNum, JSON.stringify(TodoObj));
                  
             }
+            let btnUpdate = document.querySelector('#btnUp').addEventListener('click', ()=> {
+                    updateTodo(getInputs(), currentKey);
+                    document.querySelector('.placeholder').innerHTML = 'Updated !';
+                document.querySelector('.Popup-content').style.backgroundColor = '#cccccc';
+                document.querySelector('#Popup').style.display = 'block';
+                btnUpdate.style.display = 'none';
+                document.querySelector('#btnAdd').style.display = 'block';
+            });
             function getInputs(){
                 TodoObj.Title = document.querySelector('#txtHeading').value;
                 TodoObj.Date = document.querySelector('#txtDate').value;
@@ -159,9 +224,24 @@
                 return TodoObj;
             }
             let btnAdd = document.querySelector('#btnAdd').addEventListener('click', () => {
-                  AddToDo(getInputs()); 
-                   alert('jkahfdkjf')
+               
+                   // document.querySelector('.placeholder').innerHTML = 'message' ;
+                    //document.querySelector('#Popup').style.display = 'block';
+                    AddToDo(getInputs()); 
+                    document.querySelector('.placeholder').innerHTML = 'Added to the Todo-list !';
+                document.querySelector('.Popup-content').style.backgroundColor = 'green';
+                document.querySelector('#Popup').style.display = 'block';
+                           // 
+            
+                      
+                      
             }); 
+            function updateTodo(TodoObj, dataKey){
+                      
+                 localStorage.setItem(dataKey, JSON.stringify(TodoObj));
+                 
+
+            }
 
         /* function validateInputs(textBox, pattern){
 
@@ -173,7 +253,16 @@
                 document.querySelector('#txtDetails').value = 'SOME RANDOM VALUES';
         })
         
-            
+        function genID(ID){
+            if(! (localStorage.getItem("Todo-"+ID ) == null)){
+                
+                return genID(++ID);
+            }
+            else {
+               return ID;
+                
+            }
+        }
     </script>
 </body>
 </html>

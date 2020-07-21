@@ -2,6 +2,11 @@
     margin: 0px;
     padding: 0px;
 }
+html, body{
+    margin: 0px;
+    padding:0px;
+    
+}
 
  header{
         padding: 1rem;
@@ -30,6 +35,8 @@ label{
     transition: background-color 0.5s ease-out;
     box-shadow: 5px 5px 5px rgba(0,0,0, .5);
     padding: 1em 3em;
+    font-weight: bold;
+    font-family:  'Times New Roman', Times, serif;
     
 }
 P.withIcon{
@@ -43,6 +50,7 @@ P.withIcon{
     position: absolute;
     left: 33%;
     bottom: 10px;
+    
  
 }
 .btn:hover + i{
@@ -94,18 +102,17 @@ ol.features li{
     
 }
 main{
-    padding:1em;
-    /* background:  linear-gradient(red, blue) url('imgs/bg-mobile.png'); */
-    background-color: white;
-    padding-right: 2em;
-    
+    padding:0px;
+
+    /* background:  linear-gradient(red, blue) url('imgs/bg-mobile.png'); */ 
 }
 aside{
     background-color: teal;
     padding:.4rem;
+    width: 98%;
 }
 form  input:not([type='submit']), textarea{
-    width: 15rem;
+    width: 90%;
     border-radius: 0px;
     margin: 10px 0px;
     border: 2px solid teal;
@@ -113,13 +120,17 @@ form  input:not([type='submit']), textarea{
 }
 form input[type='Date'], form input[type='Time']{
     
-    width: 40%;
+    width: 45%;
     float: left;
     height: 2em;
     font-size: 1em;
 }
 form input[type='Date']{
     border-right: 0px;
+}
+form{
+    padding: 1em;
+    width: 100%;
 }
 
 .tasks{
@@ -129,7 +140,8 @@ form input[type='Date']{
 }
 .tasks h2{
     background-color: springgreen;
-    padding: .1rem;
+    padding: .2rem;
+    border-radius: 10px 10px 0px 0px;
 }
 #btnAuto{
     display: none;
@@ -147,13 +159,16 @@ form input[type='Date']{
     transition: all 1s ease-in-out;
 }
 div.todo-item{
-    margin: 5px;
-    background-color:snow ;
+    margin: 15px 5px;
+    background-color: white;
     padding: .9em;
+    box-shadow: 5px 6px 5px 3px rgba(0,0,0, .5);
 }
 footer{
     padding: .5rem;
     background-color: slategrey;
+    color: thistle;
+    text-align: center;
 }
 aside h2{
     text-align: center;
@@ -162,7 +177,26 @@ aside h2{
 .container{
     display: block;
 }
-@media(max-width:1023px){
+.anim-heart{
+    color:red;
+    background-image: linear-gradient(red,pink, crimson);
+    background-position: center;
+}
+@media(min-width:768px){
+    form  input:not([type='submit']), textarea{
+        width: 90%;
+        border-radius: 0px;
+        margin: 10px 0px;
+        border: 2px solid teal;
+        margin-top: 0px;
+    }
+    form input[type='Date'], form input[type='Time']{
+        
+        width: 45%;
+        float: left;
+        height: 2em;
+        font-size: 1em;
+    }
    
     .todo-item .btnEdit{
         background-color:white;
@@ -183,6 +217,8 @@ aside h2{
     }
     aside{
         flex:2;
+        padding:1em;
+        padding-top: .1em;
     }
 
     .container{
@@ -192,12 +228,13 @@ aside h2{
     .tasks{
         margin: 1em;
         padding: .1em;
+        padding-top: .05em;
         position: relative;
     }
-    aside{
-        background-color: teal;
-        padding:1em;
+    div.todo-item{
+        border-radius: 20px;
     }
+   
 
 }
 /* TABLE STYLES */
@@ -205,3 +242,37 @@ aside h2{
 @media(max-width:767px){
 
 }
+ /* The Modal (background) */
+ .Popup {
+    display: none; 
+    position: fixed;  
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto;  
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+  }
+
+  .Popup-content {
+    background-color: #fefefe;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; 
+  }
+  .close {
+    color: red;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  } 
