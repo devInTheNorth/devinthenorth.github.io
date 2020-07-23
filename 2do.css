@@ -2,11 +2,21 @@
     margin: 0px;
     padding: 0px;
 }
-html, body{
-    margin: 0px;
-    padding:0px;
-    
+body{
+   
 }
+.title{
+    font-family: 'showcard gothic regular', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 2em;
+    font-style: oblique;
+    box-shadow: 6px 5px 5px grey;
+    text-align: center;
+    color: whitesmoke;
+    text-shadow: 5px 5px 5px black;
+    padding-right: .8rem;
+    border-radius: 30px 50px;
+}
+
 
  header{
         padding: 1rem;
@@ -99,11 +109,9 @@ ol.features li{
     display: inline;
     background-color: teal;
     padding:5px;
-    
 }
 main{
     padding:0px;
-
     /* background:  linear-gradient(red, blue) url('imgs/bg-mobile.png'); */ 
 }
 aside{
@@ -179,10 +187,28 @@ aside h2{
 }
 .anim-heart{
     color:red;
-    background-image: linear-gradient(red,pink, crimson);
     background-position: center;
 }
+
+/* Experimental Features */
+.tasks-2m{
+    transition: all 5s ease-in-out;
+}
+/* Experimental Features */
+
 @media(min-width:768px){
+    .title{
+        font-family: 'showcard gothic regular', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 4em;
+        font-style: oblique;
+        box-shadow: 6px 5px 5px grey;
+        text-align: center;
+        color: whitesmoke;
+        text-shadow: 5px 5px 5px black;
+        padding-right: .8rem;
+        border-radius: 30px 50px;
+    }
+    
     form  input:not([type='submit']), textarea{
         width: 90%;
         border-radius: 0px;
@@ -216,7 +242,7 @@ aside h2{
         flex:1.5;
     }
     aside{
-        flex:2;
+        flex:1.5;
         padding:1em;
         padding-top: .1em;
     }
@@ -234,12 +260,16 @@ aside h2{
     div.todo-item{
         border-radius: 20px;
     }
-   
-
 }
 /* TABLE STYLES */
 
 @media(max-width:767px){
+
+}
+@media(min-width:992px){
+    aside{
+        flex:2;
+    }
 
 }
  /* The Modal (background) */
