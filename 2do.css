@@ -3,10 +3,11 @@
     padding: 0px;
 }
 body{
-   
+    font-size: 14px;
+    scroll-behavior: smooth;
 }
 .title{
-    font-family: 'showcard gothic regular', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'showcard gothic regular', 'showcard gothic', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 2em;
     font-style: oblique;
     box-shadow: 6px 5px 5px grey;
@@ -16,8 +17,6 @@ body{
     padding-right: .8rem;
     border-radius: 30px 50px;
 }
-
-
  header{
         padding: 1rem;
         background-color: white;
@@ -29,7 +28,6 @@ body{
 form  input:not([type='submit']) {
     height: 2em;
     font-size: 1em;
-    
 }
 label{
     color:slategray;
@@ -37,25 +35,22 @@ label{
 }
 .btn{
     padding: 20px;
-    
-    font-size: 1em;
+    font-size: 1.4em;
     font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
     border: 1px solid teal;
     margin-left: 30%;
     transition: background-color 0.5s ease-out;
     box-shadow: 5px 5px 5px rgba(0,0,0, .5);
-    padding: 1em 3em;
+    padding: .5em 2em;
     font-weight: bold;
-    font-family:  'Times New Roman', Times, serif;
     
 }
 P.withIcon{
    
     position: relative;
 }
-.btn + i{
+.btn + .icon{
     color:green;
-    
    background-clip: padding-box;
     position: absolute;
     left: 33%;
@@ -63,7 +58,7 @@ P.withIcon{
     
  
 }
-.btn:hover + i{
+.btn:hover + icon{
     color:teal;
 }
 .btn:hover{
@@ -154,10 +149,23 @@ form{
 #btnAuto{
     display: none;
 }
-.tasks h2+i{
+.tasks h2+span.icon{
      position: absolute;
+     cursor: pointer;
+     color: white;
     right: 10px;
-    top: 7px;   
+    top: 2px;   
+    font-size: 2em;
+    font-weight: bold;
+}
+.tasks h2+span.icon:hover{
+    color: black;
+   font-size: 2.2em;
+   font-weight: bolder;
+}
+span.icon{
+    font-size: 2em;
+    font-weight: bold;
 }
 .todo-item button{
     padding: .2em .5em;
@@ -172,11 +180,18 @@ div.todo-item{
     padding: .9em;
     box-shadow: 5px 6px 5px 3px rgba(0,0,0, .5);
 }
+a{
+    text-decoration: none;
+}
+
 footer{
     padding: .5rem;
-    background-color: slategrey;
-    color: thistle;
+    background-image: linear-gradient(to right, slategray 50%, darkcyan, teal);
+    color: black;
     text-align: center;
+}
+span.love{
+   color: crimson;
 }
 aside h2{
     text-align: center;
@@ -198,7 +213,7 @@ aside h2{
 
 @media(min-width:768px){
     .title{
-        font-family: 'showcard gothic regular', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-family: 'showcard gothic regular', 'showcard gothic', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         font-size: 4em;
         font-style: oblique;
         box-shadow: 6px 5px 5px grey;
